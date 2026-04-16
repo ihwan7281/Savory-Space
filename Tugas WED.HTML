@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Savory Space</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      html { scroll-behavior: smooth; }
+      body { background-color: #fff8f0; }
+
+      .hero {
+        background:
+          linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+          url("https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1470&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-resep {
+        background-size: cover;
+        background-position: center;
+        color: white;
+        height: 45vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .card-img-top { height: 200px; object-fit: cover; }
+
+      footer { background-color: #343a40; color: white; padding: 20px 0; }
+
+      .card:hover { transform: scale(1.05); transition: 0.3s; cursor: pointer; }
+      .card { border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border: none; }
+
+      .navbar-nav .nav-link { margin-left: 20px; font-weight: 500; }
+
+      .resep-detail { display: none; }
+      .resep-detail.active { display: block; }
+
+      .badge-info-custom {
+        background-color: #fff3cd;
+        color: #856404;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+        border-radius: 20px;
+        display: inline-block;
+      }
+
+      .step-number {
+        width: 36px;
+        height: 36px;
+        background-color: #ffc107;
+        color: #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      .step-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .ingredient-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0e6d3;
+      }
+
+      .ingredient-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffc107;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .tips-box {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body id="top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-warning" href="#" onclick="showHome()">Savory Space</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#" onclick="showHome()">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showHome(); setTimeout(()=>document.getElementById('recipes').scrollIntoView({behavior:'smooth'}),100)">Resep</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showHome(); setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),100)">Tentang</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showHome(); setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100)">Kontak</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== HALAMAN UTAMA ===== -->
+    <div id="homePage">
+      <section class="hero">
+        <div class="container">
+          <h1 class="display-4 fw-bold">Selamat Datang di Dunia Resep!</h1>
+          <p class="lead">Temukan resep favoritmu dan coba di rumah dengan mudah</p>
+          <a href="#recipes" class="btn btn-warning btn-lg mt-3">Lihat Resep</a>
+        </div>
+      </section>
+
+      <section id="recipes" class="py-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Resep Populer</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100" onclick="showResep('nasigoreng')">
+                <img src="https://3.bp.blogspot.com/-6WPXCjrvLPo/VfwVn5jG3KI/AAAAAAAAASQ/QsV3wCCJHaE/s1600/nasi-goreng.jpg" class="card-img-top" />
+                <div class="card-body">
+                  <h5 class="card-title">Nasi Goreng Spesial</h5>
+                  <p class="card-text">Nasi goreng dengan telur, ayam, dan bumbu rahasia yang lezat.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100" onclick="showResep('carbonara')">
+                <img src="https://thefoodxp.com/wp-content/uploads/2021/11/Cheesecake-Factory-PastaCarnonara-Recipe-1024x576.webp" class="card-img-top" />
+                <div class="card-body">
+                  <h5 class="card-title">Pasta Carbonara</h5>
+                  <p class="card-text">Pasta creamy dengan bacon, keju parmesan, dan saus carbonara autentik.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100" onclick="showResep('esteler')">
+                <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/1200x675/photo/2024/06/22/3029110567.png" class="card-img-top" />
+                <div class="card-body">
+                  <h5 class="card-title">Es Teler</h5>
+                  <p class="card-text">Minuman segar khas Indonesia dengan campuran alpukat, kelapa muda, nangka, dan susu manis.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-4">Tentang Website</h2>
+          <p class="text-center">
+            Savory Space adalah platform yang menghadirkan berbagai inspirasi resep makanan dengan tampilan modern dan mudah diakses. Dari hidangan sederhana hingga menu spesial, semua dirancang untuk memberikan pengalaman memasak yang menyenangkan dan praktis bagi siapa saja.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" class="py-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Kontak</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <form onsubmit="kirimPesan(event)">
+                <div class="mb-3">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control" placeholder="Masukkan nama" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" placeholder="Masukkan email" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Pesan</label>
+                  <textarea class="form-control" rows="4" placeholder="Tulis pesan"></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Kirim</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== DETAIL: NASI GORENG ===== -->
+    <div id="page-nasigoreng" class="resep-detail">
+      <section class="hero-resep" style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://3.bp.blogspot.com/-6WPXCjrvLPo/VfwVn5jG3KI/AAAAAAAAASQ/QsV3wCCJHaE/s1600/nasi-goreng.jpg');">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Nasi Goreng Spesial</h1>
+          <p class="lead">Resep nasi goreng rumahan yang lezat dan mudah dibuat</p>
+        </div>
+      </section>
+      <section class="py-5">
+        <div class="container">
+          <button class="btn btn-warning mb-4" onclick="showHome()">&#8592; Kembali ke Resep</button>
+          <div class="row mb-4 g-3">
+            <div class="col-auto"><span class="badge-info-custom">⏱ Waktu: 20 menit</span></div>
+            <div class="col-auto"><span class="badge-info-custom">👤 Porsi: 2 orang</span></div>
+            <div class="col-auto"><span class="badge-info-custom">🍳 Tingkat: Mudah</span></div>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-5">
+              <h3 class="fw-bold mb-4">Bahan-bahan</h3>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>2 piring nasi putih (dingin/sisa)</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>2 butir telur ayam</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>100 gram daging ayam, potong dadu</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>3 siung bawang putih, cincang</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>4 siung bawang merah, iris tipis</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>2 sdm kecap manis</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>1 sdm saus tiram</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>1 sdt garam & merica secukupnya</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>2 sdm minyak goreng</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>Daun bawang & bawang goreng untuk taburan</span></div>
+            </div>
+            <div class="col-md-7">
+              <h3 class="fw-bold mb-4">Cara Membuat</h3>
+              <div class="step-item"><div class="step-number">1</div><p class="mb-0">Panaskan minyak goreng di wajan dengan api sedang-besar. Tumis bawang merah dan bawang putih hingga harum dan kekuningan, sekitar 2–3 menit.</p></div>
+              <div class="step-item"><div class="step-number">2</div><p class="mb-0">Masukkan potongan ayam, masak hingga berubah warna dan matang, sekitar 4–5 menit. Sisihkan ke tepi wajan.</p></div>
+              <div class="step-item"><div class="step-number">3</div><p class="mb-0">Kocok telur lalu tuangkan ke tengah wajan, orak-arik hingga setengah matang, lalu aduk bersama ayam.</p></div>
+              <div class="step-item"><div class="step-number">4</div><p class="mb-0">Masukkan nasi putih, aduk rata dengan semua bahan di wajan. Pastikan nasi tidak menggumpal.</p></div>
+              <div class="step-item"><div class="step-number">5</div><p class="mb-0">Tambahkan kecap manis, saus tiram, garam, dan merica. Aduk rata dan masak 2–3 menit hingga semua bumbu meresap.</p></div>
+              <div class="step-item"><div class="step-number">6</div><p class="mb-0">Angkat dan sajikan panas-panas. Taburi daun bawang dan bawang goreng. Nikmati selagi hangat!</p></div>
+            </div>
+          </div>
+          <div class="tips-box">
+            <h5 class="fw-bold">💡 Tips Chef</h5>
+            <p class="mb-0">Gunakan nasi sisa yang sudah dingin agar hasil nasi goreng lebih kering dan tidak menggumpal. Nasi hangat mengandung uap air berlebih yang membuat tekstur nasi goreng menjadi lembek.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== DETAIL: PASTA CARBONARA ===== -->
+    <div id="page-carbonara" class="resep-detail">
+      <section class="hero-resep" style="background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://thefoodxp.com/wp-content/uploads/2021/11/Cheesecake-Factory-PastaCarnonara-Recipe-1024x576.webp');">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Pasta Carbonara</h1>
+          <p class="lead">Pasta creamy klasik Italia dengan saus telur dan keju autentik</p>
+        </div>
+      </section>
+      <section class="py-5">
+        <div class="container">
+          <button class="btn btn-warning mb-4" onclick="showHome()">&#8592; Kembali ke Resep</button>
+          <div class="row mb-4 g-3">
+            <div class="col-auto"><span class="badge-info-custom">⏱ Waktu: 30 menit</span></div>
+            <div class="col-auto"><span class="badge-info-custom">👤 Porsi: 2 orang</span></div>
+            <div class="col-auto"><span class="badge-info-custom">🍝 Tingkat: Menengah</span></div>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-5">
+              <h3 class="fw-bold mb-4">Bahan-bahan</h3>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>200 gram spaghetti atau fettuccine</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>150 gram bacon atau pancetta, potong dadu</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>3 butir telur ayam (2 utuh + 1 kuning saja)</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>60 gram keju Parmesan, parut halus</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>3 siung bawang putih, cincang</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>1 sdm minyak zaitun</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>Garam & merica hitam kasar secukupnya</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>Air pasta untuk mengencerkan saus</span></div>
+            </div>
+            <div class="col-md-7">
+              <h3 class="fw-bold mb-4">Cara Membuat</h3>
+              <div class="step-item"><div class="step-number">1</div><p class="mb-0">Rebus pasta dalam air mendidih bergaram hingga al dente sesuai petunjuk kemasan. Simpan 1 cangkir air rebusan pasta sebelum ditiriskan.</p></div>
+              <div class="step-item"><div class="step-number">2</div><p class="mb-0">Di mangkuk terpisah, kocok telur bersama keju Parmesan parut dan merica hitam kasar. Campuran ini akan menjadi saus carbonara.</p></div>
+              <div class="step-item"><div class="step-number">3</div><p class="mb-0">Tumis bacon dengan minyak zaitun di wajan besar hingga kecoklatan dan sedikit renyah. Masukkan bawang putih, tumis 1 menit lagi. Matikan api.</p></div>
+              <div class="step-item"><div class="step-number">4</div><p class="mb-0">Masukkan pasta yang sudah ditiriskan ke dalam wajan bersama bacon. Penting: pastikan api sudah mati atau sangat kecil agar telur tidak menggumpal.</p></div>
+              <div class="step-item"><div class="step-number">5</div><p class="mb-0">Tuangkan campuran telur-keju ke pasta, aduk cepat sambil tambahkan sedikit air pasta untuk mendapatkan tekstur saus yang creamy dan mengkilap.</p></div>
+              <div class="step-item"><div class="step-number">6</div><p class="mb-0">Sajikan segera dengan taburan keju Parmesan extra dan merica hitam kasar di atasnya. Pasta carbonara terbaik dimakan langsung!</p></div>
+            </div>
+          </div>
+          <div class="tips-box">
+            <h5 class="fw-bold">💡 Tips Chef</h5>
+            <p class="mb-0">Kunci carbonara yang sempurna adalah suhu — jangan gunakan api saat menuangkan campuran telur. Panas residual pasta sudah cukup untuk mematangkan telur. Jika terlalu panas, telur akan matang menjadi scrambled egg, bukan saus creamy.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== DETAIL: ES TELER ===== -->
+    <div id="page-esteler" class="resep-detail">
+      <section class="hero-resep" style="background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('https://assets.pikiran-rakyat.com/crop/0x0:0x0/1200x675/photo/2024/06/22/3029110567.png');">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Es Teler</h1>
+          <p class="lead">Minuman segar khas Indonesia yang manis dan menyegarkan</p>
+        </div>
+      </section>
+      <section class="py-5">
+        <div class="container">
+          <button class="btn btn-warning mb-4" onclick="showHome()">&#8592; Kembali ke Resep</button>
+          <div class="row mb-4 g-3">
+            <div class="col-auto"><span class="badge-info-custom">⏱ Waktu: 15 menit</span></div>
+            <div class="col-auto"><span class="badge-info-custom">👤 Porsi: 4 orang</span></div>
+            <div class="col-auto"><span class="badge-info-custom">🥤 Tingkat: Mudah</span></div>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-5">
+              <h3 class="fw-bold mb-4">Bahan-bahan</h3>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>1 buah alpukat matang, potong dadu</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>200 gram kelapa muda, serut atau potong panjang</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>150 gram nangka matang, potong kecil</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>100 gram kolang-kaling (opsional)</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>200 ml santan kental</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>4 sdm susu kental manis</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>Es batu serut atau es batu secukupnya</span></div>
+              <div class="ingredient-item"><div class="ingredient-dot"></div><span>Sirup merah (cocopandan) secukupnya</span></div>
+            </div>
+            <div class="col-md-7">
+              <h3 class="fw-bold mb-4">Cara Membuat</h3>
+              <div class="step-item"><div class="step-number">1</div><p class="mb-0">Siapkan semua buah: potong alpukat menjadi dadu kecil, serut atau potong kelapa muda, dan potong nangka menjadi potongan kecil. Simpan di kulkas agar tetap segar.</p></div>
+              <div class="step-item"><div class="step-number">2</div><p class="mb-0">Campurkan santan kental dengan susu kental manis, aduk rata. Dinginkan campuran santan di kulkas minimal 10 menit sebelum disajikan.</p></div>
+              <div class="step-item"><div class="step-number">3</div><p class="mb-0">Siapkan gelas saji yang besar. Masukkan es batu serut ke dasar gelas sebagai lapisan pertama.</p></div>
+              <div class="step-item"><div class="step-number">4</div><p class="mb-0">Susun buah-buahan di atas es: alpukat, kelapa muda, nangka, dan kolang-kaling. Tata dengan cantik agar tampilannya menarik.</p></div>
+              <div class="step-item"><div class="step-number">5</div><p class="mb-0">Tuangkan campuran santan-susu kental manis secara merata ke atas isian buah. Jangan terlalu banyak agar rasa tidak terlalu manis.</p></div>
+              <div class="step-item"><div class="step-number">6</div><p class="mb-0">Teteskan sirup cocopandan di atasnya untuk warna merah yang cantik dan aroma pandan yang segar. Sajikan segera sebelum es mencair!</p></div>
+            </div>
+          </div>
+          <div class="tips-box">
+            <h5 class="fw-bold">💡 Tips Chef</h5>
+            <p class="mb-0">Untuk es teler yang lebih creamy dan autentik, gunakan santan segar dari kelapa parut. Kamu juga bisa menambahkan biji selasih yang sudah direndam air hangat agar mengembang — teksturnya menambah sensasi unik di setiap tegukan!</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="text-center">
+      <div class="container">
+        <p>&copy; 2026 Savory Space. Semua hak cipta dilindungi.</p>
+      </div>
+    </footer>
+
+    <script>
+      function showResep(id) {
+        document.getElementById('homePage').style.display = 'none';
+        document.querySelectorAll('.resep-detail').forEach(el => el.classList.remove('active'));
+        document.getElementById('page-' + id).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function showHome() {
+        document.getElementById('homePage').style.display = 'block';
+        document.querySelectorAll('.resep-detail').forEach(el => el.classList.remove('active'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function kirimPesan(event) {
+        event.preventDefault();
+        alert("Pesan berhasil dikirim!");
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
